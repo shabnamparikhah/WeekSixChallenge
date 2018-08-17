@@ -48,4 +48,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+    public void saveTMessage(User user){
+        user.setRoles(Arrays.asList(roleRepository.findByRole("USER")));
+        user.setEnabled(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
 }

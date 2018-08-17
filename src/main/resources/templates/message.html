@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <title>Home Page</title>
+</head>
+<body>
+
+
+<div th:fragment="nav" >
+    <table align="center" width="90%" >
+        <tr>
+            <td>
+
+    <nav class="navbar navbar-inverse">
+
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+<div sec:authorize="isAuthenticated()" align="right">
+    <!--This content is only shown to authenticated user.<br/>-->
+    <div sec:authorize="hasAuthority('ROLE_ADMIN')" align="right">
+        <!--this content is only shown to administrator.-->
+    </div>
+    <div sec:authorize="hasAuthority('ROLE_USER')" align="right">
+        <!--this content is only shown to users.-->
+       </div>
+    <li > <span style="background-color: white" >Hello:</span> <span sec:authentication="name" style="background-color: white"></span>
+        <span sec:authentication="principal.authorities" align="right">
+    [ROLE_USER,ROLE_ADMIN]
+</span></li>
+
+</div>
+<div sec:authorize="isAnonymous()">
+    <!--This content is only show to anonymouse users-->
+</div>
+
+
+            <li class="active"><a href="/login">Login</a></li>
+            <li><a href="/logout">LogOut</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/secure">Secure Page</a></li>
+
+        </ul>
+        </div>
+
+    </nav>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<form action="#" th:action="@{/processmessage}"  method="post">
+
+    <div class="container" >
+        <table class="table table-striped">
+            <th>Content</th>
+            <th>Posted Date</th>
+            <th>Sent By</th>
+
+            <tr th:each="message : ${message}">
+
+                <td >  <span th:text="${message.content}"></span><br/></td>
+                <td > <span th:text="${message.posteddate}"></span><br/></td>
+                <td > <span th:text="${message.sentby}"></span><br/></td>
+
+            </tr>
+        </table>
+    </div>
+</form>
+</body>
+</html>

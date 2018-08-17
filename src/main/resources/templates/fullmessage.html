@@ -13,16 +13,9 @@
     <title>AddMessage</title>
 </head>
 <body>
-
 <div th:replace="message :: nav"></div>
-<table align="center" width="90%" >
-    <tr>
-        <td>
-<div sec:authorize="hasAuthority('ADMIN')">
-    <a href="/fullmessage">List Message</a>
-</div>
+<form action="#" th:action="@{/fullmessagepost}" th:object="${message}"  method="post">
 
-<div sec:authorize="hasAuthority('USER')">
     <div class="container" >
         <table align="left"  width="30%">
             <tr>
@@ -36,16 +29,22 @@
 
 
         </table>
-        </div>
-    <div sec:authorize="isAnonymous()">
+        <table class="table table-striped">
+            <th>Content</th>
+            <th>Posted Date</th>
+            <th>Sent By</th>
+            <th>Update</th>
+            <th>Delete</th>
+            <tr th:each="message : ${message}">
 
-        <a href="/addmessage">Add Message</a>
+                <td >  <span th:text="${message.content}"></span><br/></td>
+                <td > <span th:text="${message.posteddate}"></span><br/></td>
+                <td > <span th:text="${message.sentby}"></span><br/></td>
+                <td><a th:href="@{/update/{id}(id=${message.id})}">Update</a></td>
+                <td><a th:href="@{/delete/{id}(id=${message.id})}">Delete</a></td>
+            </tr>
+        </table>
     </div>
-
-</div>
-        </td>
-    </tr>
-</table>
-<!--<a href="/logout">LogOut</a>-->
+</form>
 </body>
 </html>

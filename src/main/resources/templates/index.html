@@ -9,23 +9,26 @@
 <h2>Insecure Page</h2>
 <div sec:authorize="isAuthenticated()">
     This content is only shown to authenticated user.<br/>
-    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-        this content is only shown to administrator.
+
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <!--this content is only shown to administrator.-->
     </div>
-    <div sec:authorize="hasAuthority('ROLE_USER')">
-        this content is only shown to users.
+    <div sec:authorize="hasAuthority('USER')" >
+        <!--this content is only shown to users.-->
     </div>
-Logged user:<span sec:authentication="name">The Value of the here.</span><br/>
+    Hello:<span sec:authentication="name"></span><br/>
     Roles :<span sec:authentication="principal.authorities">
-    [ROLE_USER,ROLE_ADMIN]
-</span><br/><br/>
+    [USER,ADMIN]
+            </span>
 </div>
 <div sec:authorize="isAnonymous()">
-    This content is only show to anonymouse users
+    <!--This content is only show to anonymouse users-->
+    <a href="/login">Login</a>
+    <a href="/logout">LogOut</a>
+    <a href="/register">Register</a>
 </div>
-<a href="/login">Login</a> -
-<a href="/logout">LogOut</a> -
-<a href="/register">Register</a> -
-<a href="/secure">Secure Page</a>
+
+
+<!--<a href="/secure">Secure Page</a>-->
 </body>
 </html>

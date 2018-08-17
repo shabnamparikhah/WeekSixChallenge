@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <title>Secure Page</title>
+</head>
+<body>
+<div th:replace="message :: nav"></div>
+<div class="container" >
+
+    <form action="#" th:action="@{/processmessage}" th:object="${message}" method="post">
+        <input type="hidden" th:field="*{id}" />
+<table align="center" width="90%" >
+    <tr>
+        <td align="center" >
+            <h4>
+                Add New Message
+            </h4>
+        </td>
+    </tr>
+
+        <tr>
+            <td>
+                <a href="/fullmessage">List Message</a>
+                <a href="/addmessage">Add Message</a>
+            </td>
+
+        </tr>
+
+
+
+    <tr>
+        <td>
+            Content
+
+                  <span th:if="${#fields.hasErrors('content')}"
+                th:errors="*{content}"> Content Error</span>
+             <textarea rows="8" type="text" class="form-control" id="content" placeholder="Content" th:field="*{content}"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Posted Date
+          <span th:if="${#fields.hasErrors('posteddate')}"
+                th:errors="*{posteddate}"> Content Error</span>
+            <input type="date"  class="form-control" id="posteddate" placeholder="Posted Date" th:field="*{posteddate}"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Sent By
+
+          <span th:if="${#fields.hasErrors('sentby')}"
+                th:errors="*{sentby}"> Content Error</span>
+
+            <input type="text" class="form-control" id="sentby" placeholder="Sent By" th:field="*{sentby}"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="submit" class="btn">Add Message</button>
+        </td>
+    </tr>
+</table>
+    </form>
+</div>
+</body>
+</html>
